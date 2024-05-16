@@ -47,3 +47,21 @@
 //         delay(10);
 //     }
 // }
+
+
+/***
+ * backup ini
+ * 
+ *
+ * 
+ *  
+[env:ATtiny1616]
+platform = atmelmegaavr
+board = ATtiny1616
+framework = arduino
+platform_packages = framework-arduino-megaavr-megatinycore @ https://github.com/SpenceKonde/megaTinyCore/
+build_flags =  -DTCA0 -g3 -ggdb -Wl,-Map=output.map,--cref,--no-warn-mismatch -DTCA_PORTMUX=0x07 -DUSE_TIMERD0_PWM
+extra_scripts = post:extra_script.py
+ * 
+ * 
+*/
