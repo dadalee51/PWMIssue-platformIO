@@ -33,7 +33,6 @@ void loop() {
     if(data>0xFD)data=0; 
     data+=10;
     for (int i=0;i<3;i++){
-        //mask each color
         TCA0.SPLIT.LCMP1 = data; //Green
         TCA0.SPLIT.LCMP2 = 0xFE; //blue
         TCA0.SPLIT.HCMP0 = 0XFE; //RED!!!
