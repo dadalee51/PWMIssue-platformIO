@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <Wire.h>
 void setup() {
     pinMode(PIN_PA3, OUTPUT);
     pinMode(PIN_PB4, OUTPUT);
@@ -48,25 +47,4 @@ void loop() {
         TCA0.SPLIT.HCMP0 = data; //RED!!!
         delay(10);
     }
-    //TCA0.SINGLE.CMP0 = data;
-    //TCA0.SINGLE.CMP1 = data; //GREEN in normal mode.
-    //TCA0.SINGLE.CMP2 = data;
-    //TCA0.SPLIT.LCMP1 = data;  //Green as well?
-    //TCA0.SPLIT.LCMP2 = data; //blue
-    //TCA0.SPLIT.HCMP0 = data; //RED!!!
-    
-    //delay(1);
-    // TCA0.SPLIT.LCMP1 = 0xFE; //green
-    // TCA0.SPLIT.HCMP0 = 0xFE; //red
-    // TCA0.SPLIT.LCMP0 = 0xFE; //Blue?
-    // delay(1000);
-    // TCA0.SPLIT.HCMP0 = 0xFE; //RED!!!
-    // TCA0.SPLIT.LCMP0 = 0x80; //BLUE?
-    // TCA0.SPLIT.LCMP1 = 0xFE; //green
-    // delay(2000);
-}
-void show_RGB(long val){
-    analogWrite(PIN_PA3,(val>>16) & 0xFF);
-    analogWrite(PIN_PB4,(val>>8)  & 0xFF);
-    analogWrite(PIN_PB5,val       & 0xFF);
 }
