@@ -1,7 +1,4 @@
 #include <Arduino.h>
-/*** AT1 - slave 0x12
- AT1 of DryBot v2.3a, may 10 2024.
- */
 #include <Wire.h>
 #define FOR(I,N) for(int I=0;I<N;I++)
 void show_RGB(long val);
