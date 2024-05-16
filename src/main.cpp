@@ -32,9 +32,9 @@ void setup() {
   //   TCA0.SINGLE.CMP2 = 20; // Initial duty cycle for PB5
 
     TCA0.SPLIT.CTRLD = TCA_SPLIT_SPLITM_bm; // Enable split mode
-    TCA0.SPLIT.LPER = 0xFE; // Set period for lower byte
-    TCA0.SPLIT.HPER = 0xFE; // Set period for high byte
-    TCA0.SPLIT.CTRLA = TCA_SPLIT_CLKSEL_DIV1024_gc | TCA_SPLIT_ENABLE_bm; // Clock select and enable
+    TCA0.SPLIT.LPER = 0xFF; // Set period for lower byte
+    TCA0.SPLIT.HPER = 0xFF; // Set period for high byte
+    TCA0.SPLIT.CTRLA = TCA_SPLIT_CLKSEL_DIV1_gc | TCA_SPLIT_ENABLE_bm; // Clock select and enable
     TCA0.SPLIT.CTRLB = TCA_SPLIT_HCMP0EN_bm |TCA_SPLIT_LCMP2EN_bm | TCA_SPLIT_LCMP1EN_bm; 
 //Setting the HCMPnEN bit in the FRQ or PWM Waveform Generation mode of operation will override the port output
 //register for the corresponding WO[n+3] pin. 
@@ -59,23 +59,38 @@ void setup() {
      * 
     */
 
-   //delay(1000);
+   delay(1000);
 
   
 }
 char data=0;
 
 void loop() {
-    if(data>0xFEFEFE)data=0; 
-    data+=1;
+    if(data>0xFD)data=0; 
+    data+=10;
+    for (int i=0;i<3;i++){
+        //mask each color
+        TCA0.SPLIT.LCMP1 = data; //Green
+        TCA0.SPLIT.LCMP2 = 0xFE; //blue
+        TCA0.SPLIT.HCMP0 = 0XFE; //RED!!!
+        delay(10);
+        TCA0.SPLIT.LCMP1 = 0xFE; //Green
+        TCA0.SPLIT.LCMP2 = data; //blue
+        TCA0.SPLIT.HCMP0 = 0XFE; //RED!!!
+        delay(10);
+        TCA0.SPLIT.LCMP1 = 0xFE; //Green
+        TCA0.SPLIT.LCMP2 = 0xFE; //blue
+        TCA0.SPLIT.HCMP0 = data; //RED!!!
+        delay(10);
+    }
     //TCA0.SINGLE.CMP0 = data;
     //TCA0.SINGLE.CMP1 = data; //GREEN in normal mode.
     //TCA0.SINGLE.CMP2 = data;
     //TCA0.SPLIT.LCMP1 = data;  //Green as well?
     //TCA0.SPLIT.LCMP2 = data; //blue
     //TCA0.SPLIT.HCMP0 = data; //RED!!!
-    show_RGB(data);
-    delay(1);
+    
+    //delay(1);
     // TCA0.SPLIT.LCMP1 = 0xFE; //green
     // TCA0.SPLIT.HCMP0 = 0xFE; //red
     // TCA0.SPLIT.LCMP0 = 0xFE; //Blue?
